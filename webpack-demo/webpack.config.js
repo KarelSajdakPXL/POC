@@ -1,14 +1,11 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const stylesHandler = isProduction
-  ? MiniCssExtractPlugin.loader
-  : "style-loader";
+const stylesHandler = "style-loader";
 
 const config = {
   entry: "./src/index.js",
@@ -24,7 +21,6 @@ const config = {
       template: "index.html",
       favicon: "./src/icons/tomato.ico"
     }),
-
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -32,7 +28,7 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx)$/i,
-        use: "babel-loader"
+        loader: "babel-loader",
       },
       {
         test: /\.css$/i,
@@ -52,8 +48,6 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = "production";
-
-    config.plugins.push(new MiniCssExtractPlugin());
   } else {
     config.mode = "development";
   }
